@@ -4,27 +4,12 @@ import React from 'react'
  const { book , books , modifyShelfBook} = props;
 
 
-//   const handleChange = (e) => {
-//     const bookId = book.id;
-//     if (e.target.value !== book.shelf) {
-//       modifyShelfBook(bookId, e);
-//     }
-//  };
-
-//   let isBookFound = false;
-//   let SearchBookShelf;
-//   if (Book) {
-//     const SearchBook = books.filter((b) => b.id === book.id);
-//     if (SearchBook.length) {
-//       isBookFound = true;
-//       SearchBookShelf = SearchBook[0].shelf;
-//     }
-//   }
+ 
   
   return (
     <div className="book">
        <div className="book-top">
-         <div className="book-cover" style={{ width: 128, height: 193,                                                                            backgroundImage:`url(${book.imageLinks.smallThumbnail})`}}></div>
+         <div className="book-cover" style={{ width: 128, height: 193, backgroundImage:`url(${book.imageLinks? book.imageLinks.thumbnail || book.imageLinks.smallThumbnail : " "})`}}></div>
               <div className="book-shelf-changer">
                <select id={book.id}
 											  shelf={book.shelf}

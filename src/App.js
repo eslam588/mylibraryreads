@@ -32,7 +32,7 @@ const BooksApp = () => {
     setBooks(updatedBooks);
     //update the book with newshelf in api
     BooksAPI.update(book, uptdateShelf).then(() => {
-    modifyShelfBook(book, uptdateShelf);
+      setBooks(updatedBooks);
     });
   };
 
