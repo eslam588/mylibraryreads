@@ -6,9 +6,10 @@ const Search = (props) => {
   
    const [enterValue , setEnterValue] = useState("");
    const [searchBooks , setSearchBooks] = useState([]);
-   const {modifyShelfBook} = props;
-    
+   const {modifyShelfBook , originBooks} = props;
+
    
+
    useEffect(() => {
     if (enterValue.length > 0) {
       BooksAPI.search(enterValue).then((books) => {   
@@ -16,7 +17,7 @@ const Search = (props) => {
       });
     }
     else {
-      return
+      setSearchBooks([]);
     }
    }, [enterValue])
 
@@ -48,8 +49,10 @@ const Search = (props) => {
                                     <div className="book-shelf-changer">
                                     <select  
                                          book = {book}
+                                         id = {book.id}
                                          onChange = {(e) => modifyShelfBook(book , e.target.value)}
-                                         defaultValue={book.shelf ? book.shelf : "none"}>
+                                         value={book.shelf ? book.shelf : "none"} >
+                                         
                                       <option value="move" disabled>Move to...</option>
                                       <option value="currentlyReading">Currently Reading</option>
                                       <option value="wantToRead">Want to Read</option>
