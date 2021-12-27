@@ -1,19 +1,39 @@
 import React ,{useState , useEffect }  from 'react';
 import * as BooksAPI from "../BooksAPI";
 import {Link} from "react-router-dom";
-
 const Search = (props) => {
   
    const [enterValue , setEnterValue] = useState("");
    const [searchBooks , setSearchBooks] = useState([]);
    const {modifyShelfBook , originBooks} = props;
+    
+   const getSearchBooksWithShelves=(books) => {
+     BooksAPI.getAll().then((allBooksOnShelves)=> {
+        
+      let booksOnShelves = {};
+      allBooksOnShelves.forEach((book) =>{
+        booksOnShelves[book.id] = book.shelf;
+      });
 
+      const SearchBooksWithShelves = books.map((book) => {
+        const shelf = booksOnShelves[book.id];
+        if (shelf) {
+          return {...book , shelf:shelf}
+        }
+        else {
+          return {...book , shelf: 'none'}
+        }
+      })
+       setSearchBooks(SearchBooksWithShelves);
+    });
+  
+   }
    
 
    useEffect(() => {
     if (enterValue.length > 0) {
       BooksAPI.search(enterValue).then((books) => {   
-             setSearchBooks(books); 
+        getSearchBooksWithShelves(books) 
       });
     }
     else {
@@ -48,10 +68,12 @@ const Search = (props) => {
                               <div className="book-cover" style={{ width: 128, height: 193,  backgroundImage:`url(${book.imageLinks? book.imageLinks.thumbnail || book.imageLinks.smallThumbnail : " "})`}}></div>
                                     <div className="book-shelf-changer">
                                     <select  
+                                         
                                          book = {book}
                                          id = {book.id}
+                                         defaultValue={book.shelf || 'none'}
                                          onChange = {(e) => modifyShelfBook(book , e.target.value)}
-                                         value={book.shelf ? book.shelf : "none"} >
+                                          >
                                          
                                       <option value="move" disabled>Move to...</option>
                                       <option value="currentlyReading">Currently Reading</option>
@@ -63,7 +85,7 @@ const Search = (props) => {
                                     </div>
                                     <div className="book-title">{book.title}</div>
                                 <div className="book-authors">{book.authors}</div>
-                          </div>
+                          </div> 
                     </li> 
           ))): (<h3>No Resaults</h3>) 
         }    
@@ -74,3 +96,6 @@ const Search = (props) => {
 }
 
 export default Search;
+
+
+         

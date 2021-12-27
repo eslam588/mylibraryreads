@@ -3,6 +3,23 @@ import Shelf from './Shelf';
 
 const Shelves = (props) => {
 
+    const SHELVES = [
+        {
+          title: 'Currently Reading',
+          id: 'currentlyReading'
+        },
+        {
+          title: 'Want To Read',
+          id: 'wantToRead'
+        },
+        {
+          title: 'Read',
+          id: 'read'
+        }
+        ];
+
+        
+
     const currentlyReading = props.books.filter((book) => book.shelf === "currentlyReading");
     const wantToRead = props.books.filter((book) => book.shelf === "wantToRead");
     const Read = props.books.filter((book) => book.shelf === "read");
