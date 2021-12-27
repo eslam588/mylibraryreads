@@ -1,7 +1,9 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
+
 
  const Book = (props) => {
- const { book , books , modifyShelfBook} = props;
+ const { book ,  modifyShelfBook} = props;
 
 
  
@@ -27,6 +29,11 @@ import React from 'react'
           <div className="book-authors">{props.book.authors}</div>
     </div>
   )
+}
+
+Book.propTypes = {
+  modifyShelfBook: PropTypes.func,
+  book: PropTypes.object
 }
 
 export default Book;

@@ -41,7 +41,7 @@ const BooksApp = () => {
       <div className="app">
          <Routes>
             <Route path="/" exact element={<Home modifyShelfBook={modifyShelfBook} books={books}/>} />
-            <Route path="/search" exact element={<Search originBooks={books} modifyShelfBook={modifyShelfBook} />} />
+            <Route path="/search" exact element={<Search  modifyShelfBook={modifyShelfBook} />} />
         </Routes>    
       </div>
     )

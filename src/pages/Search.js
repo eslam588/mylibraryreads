@@ -9,7 +9,7 @@ const Search = (props) => {
     
    const getSearchBooksWithShelves=(books) => {
      BooksAPI.getAll().then((allBooksOnShelves)=> {
-        
+      //this will include book's id and shelf like this => {bookId : shelf}  
       let booksOnShelves = {};
       allBooksOnShelves.forEach((book) =>{
         booksOnShelves[book.id] = book.shelf;
@@ -18,9 +18,11 @@ const Search = (props) => {
       const SearchBooksWithShelves = books.map((book) => {
         const shelf = booksOnShelves[book.id];
         if (shelf) {
+          // then it is on one of the shelves
           return {...book , shelf:shelf}
         }
         else {
+          //then it has a shelf 'none'
           return {...book , shelf: 'none'}
         }
       })
